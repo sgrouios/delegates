@@ -93,7 +93,7 @@ namespace FileParser
         public List<string> GetAmountBornOnEachDate()
         {
             //IEnumerable<IGrouping<DateTime, Person>>
-            var grouped = People.OrderBy(p => p.Dob).ToList().GroupBy(o => o.Dob);
+            var grouped = People.OrderBy(p => p.Dob).GroupBy(o => o.Dob);
 
             List<string> result = new List<string>();
 
