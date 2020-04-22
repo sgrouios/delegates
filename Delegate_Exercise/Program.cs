@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using FileParser;
 
-public delegate List<List<string>> Parser(List<List<string>> data);
-
 namespace Delegate_Exercise
 {
     class Delegate_Exercise
@@ -35,11 +33,11 @@ namespace Delegate_Exercise
                     break;
                 case "2":             
                     //Process and Capitalise - using Parser type
-                    Parser parse = new Parser(RemoveHashes);
-                    parse += dp.StripWhiteSpace;
+                    Parser parse = new Parser(dp.StripWhiteSpace);
                     parse += dp.StripQuotes;
+                    parse += RemoveHashes;
                     parse += CapitaliseData;
-                    cs.ProcessAndCapitalise(readFile, writeFile, parse.Invoke);
+                    cs.ProcessAndCapitalise(readFile, writeFile, parse);
                     Console.WriteLine("DataFiles/processed_data.csv file created");
                     Console.Read();
                     break;

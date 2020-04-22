@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using FileParser;
 
-namespace Delegate_Exercise {
-    
-    
+namespace FileParser {
+
+    public delegate List<List<string>> Parser(List<List<string>> data);
     public class CsvHandler {
         
         /// <summary>
@@ -20,37 +18,22 @@ namespace Delegate_Exercise {
             List<string> read = fh.ReadFile(readFile);
             List<List<string>> formatted = fh.ParseCsv(read);
 
-            //remove #
-            dataHandler(formatted);
-
-            //remove white-spaces
-            dataHandler(formatted);
-
-            //remove ""
-            dataHandler(formatted);
+            //Remove white-spaces/quotes/hashes
+            dataHandler.Invoke(formatted);
 
             //write file
             fh.WriteFile(writeFile, ',', formatted);
         }
 
-        public void ProcessAndCapitalise(string readFile, string writeFile, Func<List<List<string>>, List<List<string>>> parse)
+        public void ProcessAndCapitalise(string readFile, string writeFile, Parser parse)
         {
             //read file
             FileHandler fh = new FileHandler();
             List<string> read = fh.ReadFile(readFile);
             List<List<string>> formatted = fh.ParseCsv(read);
 
-            //RemoveHashes
-            parse(formatted);
-
-            //Remove white-spaces
-            parse(formatted);
-
-            //Remove ""
-            parse(formatted);
-
-            //Capitalise
-            parse(formatted);
+            //Remove white-spaces/quotes/hashes/capitalise data
+            parse.Invoke(formatted);
 
             //write file
             fh.WriteFile(writeFile, ',', formatted);

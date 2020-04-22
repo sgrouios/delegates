@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
 using System.Linq;
 using ObjectLibrary;
 
@@ -40,9 +38,9 @@ namespace FileParser
             ordered = People.OrderBy(p => p.Dob).ToList();
             oldest.Add(ordered[0]);
 
-            for(int i = 1; i < ordered.Count; i++)
+            for (int i = 1; i < ordered.Count; i++)
             {
-                if (ordered[i].Dob.Equals(oldest[0].Dob)) 
+                if (ordered[i].Dob.Equals(oldest[0].Dob))
                 {
                     oldest.Add(ordered[i]);
                 }
@@ -78,12 +76,12 @@ namespace FileParser
 
             foreach (Person pers in People)
             {
-                if(pers.Surname.StartsWith(searchTerm, !caseSensitive, null))
+                if (pers.Surname.StartsWith(searchTerm, !caseSensitive, null))
                 {
                     count++;
                 }
             }
-            return count; 
+            return count;
         }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace FileParser
 
             List<string> result = new List<string>();
 
-            foreach(var person in grouped)
+            foreach (var person in grouped)
             {
                 result.Add($"{person.Key.ToString("dd/MM/yyyy")} {person.Count()}");
             }
