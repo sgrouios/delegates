@@ -32,10 +32,8 @@ namespace FileParser
         /// <returns></returns>
         public List<Person> GetOldest()
         {
-            List<Person> ordered = new List<Person>();
             List<Person> oldest = new List<Person>();
-
-            ordered = People.OrderBy(p => p.Dob).ToList();
+            List<Person> ordered = People.OrderBy(p => p.Dob).ToList();
             oldest.Add(ordered[0]);
 
             for (int i = 1; i < ordered.Count; i++)
@@ -56,7 +54,7 @@ namespace FileParser
         /// <returns></returns>
         public string GetString(int id)
         {
-            return People[id].ToString();
+            return People.Where(person => person.Id == id).First().ToString();
         }
 
         public List<Person> GetOrderBySurname()
@@ -90,12 +88,11 @@ namespace FileParser
         /// <returns></returns>
         public List<string> GetAmountBornOnEachDate()
         {
-            //IEnumerable<IGrouping<DateTime, Person>>
-            var grouped = People.OrderBy(p => p.Dob).GroupBy(o => o.Dob);
+            IEnumerable<IGrouping<DateTime, Person>> grouped = People.OrderBy(p => p.Dob).GroupBy(o => o.Dob);
 
             List<string> result = new List<string>();
 
-            foreach (var person in grouped)
+            foreach (IGrouping<DateTime, Person> person in grouped)
             {
                 result.Add($"{person.Key.ToString("dd/MM/yyyy")} {person.Count()}");
             }
